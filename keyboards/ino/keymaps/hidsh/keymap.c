@@ -1,4 +1,5 @@
 #include "action_layer.h"
+#include "quantum/pointing_device.h"         // pointing_device_get_report
 #include "config.h"
 #include "ino.h"
 
@@ -65,6 +66,48 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 }
 
+enum my_keycodes {
+    S_MSM = SAFE_RANGE,       // Shift + Mouse Middle Button (for Orbit on Fusion360)
+};
+
+#define PROCESS_OVERRIDE_BEHAVIOR   (false)
+#define PROCESS_USUAL_BEHAVIOR      (true)
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+    const uint8_t mask_middle_button = MOUSE_BTN3;
+    report_mouse_t mouse_report = pointing_device_get_report();
+
+
+    switch (keycode) {
+        case S_MSM:
+            if (record->event.pressed) {
+                add_key(KC_LSHIFT);
+                send_keyboard_report();
+
+                mouse_report.buttons |= mask_middle_button;
+                pointing_device_set_report(mouse_report);
+                // pointing_device_send();
+            }
+            else {
+                del_key(KC_LSHIFT);
+                send_keyboard_report();
+
+                mouse_report.buttons &= ~mask_middle_button;
+                pointing_device_set_report(mouse_report);
+                // pointing_device_send();
+            }
+
+            return PROCESS_OVERRIDE_BEHAVIOR;
+            break;
+
+        default:
+            break;
+    }
+
+    return PROCESS_USUAL_BEHAVIOR;
+}
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -88,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,    KC_W,    KC_E,  KC_R,    KC_T,   xxx,   xxx,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS, \
   US_EISU,  KC_A,    KC_S,    KC_D,  KC_F,    KC_G,   xxx,   xxx,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,   xxx,     \
   xxx,     KC_LSFT,  KC_Z,    KC_X,  KC_C,    KC_V,   KC_B,  xxx,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_UP,    KC_DEL,  \
-  KC_ESC,  KC_LALT,  ____, KC_LWIN, KC_SPC, KC_MSM, KC_MSL,  xxx,    KC_MSR, KC_SPC, KC_RCTL, RAISE,   LOWER,   KC_LEFT,  KC_DOWN,  KC_RIGHT \
+  KC_ESC,  KC_LALT,  S_MSM, KC_LWIN, KC_SPC, KC_MSM, KC_MSL, xxx,    KC_MSR, KC_SPC, KC_RCTL, RAISE,   LOWER,   KC_LEFT,  KC_DOWN,  KC_RIGHT \
   ),
 
 [LY_LINUX] = LAYOUT(
