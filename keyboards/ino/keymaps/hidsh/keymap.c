@@ -108,6 +108,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 }
 
 
+// Mod Tapping
+#define TAPPING_TERM 200            // default: 200 ms
+#define RETRO_TAPPING
+                                    // Hold     Tap
+#define CTL_ESC RCTL_T(KC_ESC)      // R-CTL    ESC
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -131,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,    KC_W,    KC_E,  KC_R,    KC_T,   xxx,   xxx,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS, \
   US_EISU,  KC_A,    KC_S,    KC_D,  KC_F,    KC_G,   xxx,   xxx,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,   xxx,     \
   xxx,     KC_LSFT,  KC_Z,    KC_X,  KC_C,    KC_V,   KC_B,  xxx,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_UP,    KC_DEL,  \
-  KC_ESC,  KC_LALT,  S_MSM, KC_LWIN, KC_SPC, KC_MSM, KC_MSL, xxx,    KC_MSR, KC_SPC, KC_RCTL, RAISE,   LOWER,   KC_LEFT,  KC_DOWN,  KC_RIGHT \
+  KC_ESC,  KC_LALT,  S_MSM, KC_LWIN, KC_SPC, KC_MSM, KC_MSL, xxx,    KC_MSR, KC_SPC, CTL_ESC, RAISE,   LOWER,   KC_LEFT,  KC_DOWN,  KC_RIGHT \
   ),
 
 [LY_LINUX] = LAYOUT(
