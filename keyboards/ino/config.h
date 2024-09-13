@@ -36,9 +36,9 @@
 #define MATRIX_COLS        8
 
 /* trackball and scroll-ring */
-#define TRACKBALL_RESOLUTION    RES2_500CPI     // counts/inch (slow:125 <--> 1350:fast)
+#define TRACKBALL_RESOLUTION    RES2_750CPI     // counts/inch (slow:125 <--> 1350:fast)
 #define TRACKBALL_AZIMUTH_ADJ   0               // degree      (cw:-45 <--> 45:ccw)
-#define SCROLL_INVERT           false           // scroll direction
+#define SCROLL_INVERT           true           // scroll direction
 
 // #define TAPPING_TERM    200
 // #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
@@ -103,7 +103,9 @@
 #define BOOTMAGIC_KEY_SALT                        KC_SPACE      // The Bootmagic key
 #define BOOTMAGIC_KEY_SKIP                        KC_ESC        // Ignore Bootmagic configuration in EEPROM
 #define BOOTMAGIC_KEY_EEPROM_CLEAR                KC_BSPACE     // Clear the EEPROM configuration
-#define BOOTMAGIC_KEY_BOOTLOADER                  KC_B          // Enter the bootloader
+*/
+#define BOOTMAGIC_KEY_BOOTLOADER                  KC_SPACE          // Enter the bootloader
+/*
 #define BOOTMAGIC_KEY_DEBUG_ENABLE                KC_D          // Toggle debugging over serial
 #define BOOTMAGIC_KEY_DEBUG_MATRIX                KC_X          // Toggle matrix debugging
 #define BOOTMAGIC_KEY_DEBUG_KEYBOARD              KC_K          // Toggle keyboard debugging
@@ -127,4 +129,3 @@
 #define BOOTMAGIC_KEY_DEFAULT_LAYER_7             KC_NO         // Make layer 7 the default layer
 
 #undef CATERINA_BOOTLOADER
-
